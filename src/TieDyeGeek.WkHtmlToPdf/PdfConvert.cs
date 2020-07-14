@@ -6,16 +6,6 @@ using System.Threading;
 
 namespace TieDyeGeek.WkHtmlToPdf
 {
-	public class PdfConvertException : Exception
-	{
-		public PdfConvertException(string msg) : base(msg) { }
-	}
-
-	public class PdfConvertTimeoutException : PdfConvertException
-	{
-		public PdfConvertTimeoutException() : base("HTML to PDF conversion process has not finished in the given period.") { }
-	}
-
 	public class PdfConvert
 	{
 		public static void ConvertHtmlToPdf(PdfDocument document, PdfConvertEnvironment environment, PdfOutput woutput)
@@ -37,7 +27,7 @@ namespace TieDyeGeek.WkHtmlToPdf
 			}
 
 			if (!File.Exists(environment.WkHtmlToPdfPath))
-				throw new PdfConvertException(string.Format("File '{0}' not found. Check if wkhtmltopdf application is installed.", environment.WkHtmlToPdfPath));
+				throw new FileNotFoundException($"File '{environment.WkHtmlToPdfPath}' not found. Check if WkHtmlToPdf application is installed.");
 
 			StringBuilder paramsBuilder = new StringBuilder();
 
@@ -165,16 +155,14 @@ namespace TieDyeGeek.WkHtmlToPdf
 							if (process.WaitForExit(environment.Timeout) && outputWaitHandle.WaitOne(environment.Timeout) && errorWaitHandle.WaitOne(environment.Timeout))
 							{
 								if (process.ExitCode != 0 && !File.Exists(outputPdfFilePath))
-								{
-									throw new PdfConvertException(string.Format("Html to PDF conversion of '{0}' failed. Wkhtmltopdf output: \r\n{1}", document.Url, error));
-								}
+									throw new Exception($"Html to PDF conversion of '{document.Url}' failed. Wkhtmltopdf output: \r\n{error}");
 							}
 							else
 							{
 								if (!process.HasExited)
 									process.Kill();
 
-								throw new PdfConvertTimeoutException();
+								throw new TimeoutException("HTML to PDF conversion process has not finished in the given period.");
 							}
 						}
 						finally
