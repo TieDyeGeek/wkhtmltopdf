@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Codaxy, TieDyeGeek</Authors>
+    <Company>TieDyeGeek</Company>
+    <Copyright>2020 TieDyeGeek</Copyright>
+    <Version>1.0.0-beta1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Convert HTML to a PDF using WkHtmlToPdf and C#.
+Forked from Codaxy.WkHtmlToPdf</Description>
+    <PackageProjectUrl>https://github.com/TieDyeGeek/wkhtmltopdf</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TieDyeGeek/wkhtmltopdf.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>html, pdf, wkhtmltopdf, TieDyeGeek, report</PackageTags>
+  </PropertyGroup>
+
+</Project>
