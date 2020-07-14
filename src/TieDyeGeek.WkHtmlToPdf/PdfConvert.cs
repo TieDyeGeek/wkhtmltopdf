@@ -111,25 +111,17 @@ namespace TieDyeGeek.WkHtmlToPdf
 						DataReceivedEventHandler outputHandler = (sender, e) =>
 						{
 							if (e.Data == null)
-							{
 								outputWaitHandle.Set();
-							}
 							else
-							{
 								output.AppendLine(e.Data);
-							}
 						};
 
 						DataReceivedEventHandler errorHandler = (sender, e) =>
 						{
 							if (e.Data == null)
-							{
 								errorWaitHandle.Set();
-							}
 							else
-							{
 								error.AppendLine(e.Data);
-							}
 						};
 
 						process.OutputDataReceived += outputHandler;
@@ -155,7 +147,7 @@ namespace TieDyeGeek.WkHtmlToPdf
 							if (process.WaitForExit(environment.Timeout) && outputWaitHandle.WaitOne(environment.Timeout) && errorWaitHandle.WaitOne(environment.Timeout))
 							{
 								if (process.ExitCode != 0 && !File.Exists(outputPdfFilePath))
-									throw new Exception($"Html to PDF conversion of '{document.Url}' failed. Wkhtmltopdf output: \r\n{error}");
+									throw new Exception($"HTML to PDF conversion of '{document.Url}' failed. WkHtmlToPdf output: \r\n{error}");
 							}
 							else
 							{
@@ -173,7 +165,7 @@ namespace TieDyeGeek.WkHtmlToPdf
 					}
 				}
 
-				if (woutput.OutputStream != null)
+				if (woutput.OutputStream != null) //todo move to separately called function
 				{
 					using (Stream fs = new FileStream(outputPdfFilePath, FileMode.Open))
 					{
@@ -185,7 +177,7 @@ namespace TieDyeGeek.WkHtmlToPdf
 					}
 				}
 
-				if (woutput.OutputCallback != null)
+				if (woutput.OutputCallback != null) //todo move to separately called function
 				{
 					byte[] pdfFileBytes = File.ReadAllBytes(outputPdfFilePath);
 					woutput.OutputCallback(document, pdfFileBytes);

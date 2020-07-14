@@ -15,7 +15,6 @@ namespace TieDyeGeek.WkHtmlToPdf
 		public string FooterLeft { get; set; }
 		public string FooterCenter { get; set; }
 		public string FooterRight { get; set; }
-		public object State { get; set; }
 		public Dictionary<string, string> Cookies { get; set; }
 		public Dictionary<string, string> ExtraParams { get; set; }
 		public string HeaderFontSize { get; set; }

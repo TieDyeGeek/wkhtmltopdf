@@ -34,7 +34,7 @@
 		Tabloid,
 	}
 
-internal static class PaperTypesExtension
+	internal static class PaperTypesExtension
 	{
 		internal static string ToString(this PaperType paperType)
 		{
